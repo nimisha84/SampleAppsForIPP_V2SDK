@@ -1,0 +1,63 @@
+﻿@model Mvc3Layout.Models.OpenIdDisplay
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+
+}
+    @if (string.IsNullOrWhiteSpace(ViewBag.applicationToken) || string.IsNullOrWhiteSpace(ViewBag.consumerKey) || string.IsNullOrWhiteSpace(ViewBag.consumerSecret))
+    {
+        <text>
+        @section errorDiv{
+    <div>The configuration values for
+        <ul>
+            <li>applicationToken,</li>
+            <li>consumerKey and</li>
+            <li>consumerSecret</li>
+        </ul>
+        in the appSettings section is null or empty. Please ensure that the configuration
+        values are specified and try again. 
+    </div>
+}
+        </text>
+  
+    }
+    else
+    {
+       @* <text>
+     @section mainContentDiv{
+    }
+        </text>*@
+    }
+
+    @if (ViewBag.Flag != null)
+    {
+        bool flagValue = Convert.ToBoolean(ViewBag.Flag);
+        if (flagValue)
+        {
+           <text>
+           @section blueDotDiv{
+            @*Show BlueDot widget*@
+            <ipp:bluedot></ipp:bluedot>
+            }
+            </text>
+        }
+        else
+        {
+           //Disable BlueDot widget
+            
+        }
+    }
+    else
+    {
+        //Disable BlueDot widget
+       
+    }
+
+    @RenderBody()

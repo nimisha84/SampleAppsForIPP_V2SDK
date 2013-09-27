@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "OAuthHandler";
+}
+
+<h2>OAuthHandler</h2>
+
+ <div>
+    Loading...
+    <script type="text/javascript">
+        try {
+
+            var parentlocation = window.parent.opener.location.hostname;
+            var currentlocation = window.location.hostname;
+            if (parentlocation != currentlocation) {
+
+                window.location = '@Url.Action("About", "Home")';
+            }
+            else {
+
+                window.opener.location.href = window.opener.location.href;
+
+                window.close();
+            }
+        }
+        catch (e) {
+
+            window.location = '@Url.Action("About", "Home")';
+        }
+
+    </script>
+    </div>

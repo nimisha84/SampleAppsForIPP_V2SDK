@@ -1,0 +1,121 @@
+﻿@model Mvc3Layout.Models.SessionWrapper
+
+@{
+    ViewBag.Title = "About";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section mainContentDiv{
+
+   <h2>
+        Welcome to Intuit Anywhere
+    </h2>
+    <p>
+        To learn more about Intuit Anywhere, visit the <a href="http://developer.intuit.com/"
+            title="Intuit Developer Network" target="_blank">Intuit Developer Network</a>.
+    </p>
+    <p>
+        You can also find our <a href=" https://ipp.developer.intuit.com/0010_Intuit_Partner_Platform/0025_Intuit_Anywhere/1000_Getting_Started_With_IA"
+            title="Intuit Anywhere Getting Started guide" target="_blank">Intuit Anywhere Getting Started guide</a>
+        in our documentation.
+    </p>
+   @*Code Written for Demonstration Purpose Only*@
+    <div id="intuit OpenId Code Region">
+   
+       
+
+       
+            @if (string.IsNullOrWhiteSpace(Model.OpenIdResponse))
+            {
+                 <div id="IntuitSignin">
+                    <ipp:login href="/OpenIdHandler/OpenIdHandler" target="_blank"></ipp:login>
+                 </div>
+            }
+            else
+            {
+                if (Model.SessionKeysCount > 0)
+                {
+
+                 <div  id="IntuitInfo">
+                    @*@{Html.RenderPartial("_IntuitInfo", "OpenIdDisplay");}*@
+                    <strong>OpenID Information:</strong><br />
+                    Welcome:
+                    @if (string.IsNullOrWhiteSpace(Model.FriendlyName))
+                    {
+                        @Html.Label("text", "User Didnt Login Via OpenID, look them up in your system")
+                    }
+                    else
+                    {
+                        @Html.LabelFor(model => model.FriendlyName, Model.FriendlyName)    
+                    }        
+                    <br />
+                    E-mail Address:
+                     @if (string.IsNullOrWhiteSpace(Model.FriendlyEmail))
+                     {
+                        @Html.Label("text", "User Didnt Login Via OpenID, look them up in your system")
+                     }
+                     else
+                     {
+                        @Html.LabelFor(model => model.FriendlyEmail, Model.FriendlyEmail)     
+                     }    
+             
+                    <br />
+                    Friendly Identifier:
+                     @if (string.IsNullOrWhiteSpace(Model.FriendlyIdentifier))
+                     {
+                        @Html.Label("text", "User Didnt Login Via OpenID, look them up in your system")
+                     }
+                     else
+                     {
+                        @Html.LabelFor(model => model.FriendlyIdentifier, Model.FriendlyIdentifier) 
+                     }    
+            
+                    <br />
+                    <br />
+                 </div>   
+                } 
+           }
+       }
+                     @if ((Model.accessToken != "") && string.IsNullOrWhiteSpace(Model.InvalidAccessToken))
+                     { 
+                         <div  id="oAuthinfo">
+                    @*        <a href="QuickBooksCustomers.aspx" id="QBCustomers">Get QuickBooks Customer List</a><br />
+                            <br />
+                            <a href="QuickBooksAccounts.aspx" id="A1">Get QuickBooks Account List</a><br />
+                            <br />*@
+                            <br />
+                            <a href="/CleanUpOnDisconnect/CleanUp"></a>
+                            <br />
+                        </div>
+                     }
+                     else
+                     {
+                        <div id="connectToIntuitDiv">
+                            <ipp:connecttointuit></ipp:connecttointuit>
+                        </div>
+                        <br />
+                        <br />    
+                                       
+                     }
+                
+            
+        
+        
+       @* @if ((Model.accessToken != "") && string.IsNullOrWhiteSpace(Model.InvalidAccessToken))
+        {
+            <div  id="oAuthinfo" visible="false">
+                <a href="QuickBooksCustomers.aspx" id="QBCustomers">Get QuickBooks Customer List</a><br />
+                <br />
+                <a href="QuickBooksAccounts.aspx" id="A1">Get QuickBooks Account List</a><br />
+                <br />
+                <br />
+                <a href="#" id="Disconnect" onclick="confirmPost('/Disconnect.aspx');">Disconnect from
+                    QuickBooks</a><br />
+            </div>
+         }*@
+    </div>
+
+   }
+
+  
+
